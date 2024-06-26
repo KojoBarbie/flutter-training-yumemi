@@ -23,43 +23,38 @@ class MainApp extends StatelessWidget {
                   aspectRatio: 1,
                   child: Placeholder(),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  child: Row(
+                    children: [
+                      Expanded(
                         child: Text(
                           '** ℃',
+                          textAlign: TextAlign.center,
                           style:
                               Theme.of(context).textTheme.labelLarge?.copyWith(
                                     color: Colors.blue,
                                   ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
+                      Expanded(
                         child: Text(
                           '** ℃',
+                          textAlign: TextAlign.center,
                           style:
                               Theme.of(context).textTheme.labelLarge?.copyWith(
                                     color: Colors.red,
                                   ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Expanded(
                   child: Container(
                     alignment: Alignment.topCenter,
                     padding: const EdgeInsets.only(top: 80),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Expanded(
                           child: TextButton(
