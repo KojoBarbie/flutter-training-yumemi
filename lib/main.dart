@@ -15,9 +15,10 @@ class MainApp extends StatelessWidget {
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.5,
             child: Column(
-              // mainAxisAlignmentで合わせると、矩形が正しく中央にこない
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                const Expanded(
+                  child: SizedBox(),
+                ),
                 const AspectRatio(
                   aspectRatio: 1,
                   child: Placeholder(),
@@ -25,46 +26,59 @@ class MainApp extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: Text(
-                        '** ℃',
-                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              color: Colors.blue,
-                            ),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: Text(
+                          '** ℃',
+                          style:
+                              Theme.of(context).textTheme.labelLarge?.copyWith(
+                                    color: Colors.blue,
+                                  ),
+                        ),
                       ),
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      child: Text(
-                        '** ℃',
-                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                              color: Colors.red,
-                            ),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: Text(
+                          '** ℃',
+                          style:
+                              Theme.of(context).textTheme.labelLarge?.copyWith(
+                                    color: Colors.red,
+                                  ),
+                        ),
                       ),
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 80),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          debugPrint('Close');
-                        },
-                        child: const Text('Close'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          debugPrint('Reload');
-                        },
-                        child: const Text('Reload'),
-                      ),
-                    ],
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.topCenter,
+                    padding: const EdgeInsets.only(top: 80),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Expanded(
+                          child: TextButton(
+                            onPressed: () {
+                              debugPrint('Close');
+                            },
+                            child: const Text('Close'),
+                          ),
+                        ),
+                        Expanded(
+                          child: TextButton(
+                            onPressed: () {
+                              debugPrint('Reload');
+                            },
+                            child: const Text('Reload'),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
