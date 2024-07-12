@@ -1,11 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_training/type.dart';
+import 'package:flutter_training/yumemi_weather_repository.dart';
 
 void main() {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  final YumemiWeatherRepository _repository = YumemiWeatherRepository();
+  // なんかちがそうだけどWidgetごとsetStateしたかったのでWidgetを定義
+  Widget _weatherWidget = const Placeholder();
+
+  Future<void> setWeather() async {
+    try {
+      final weather = await _repository.fetchWeather();
+
+      switch (weather) {
+        case Weather.sunny:
+          setState(() {
+            _weatherWidget = SvgPicture.asset(
+              'assets/svg/sunny.svg',
+              semanticsLabel: 'Sunny',
+            );
+          });
+        case Weather.cloudy:
+          setState(() {
+            _weatherWidget = SvgPicture.asset(
+              'assets/svg/cloudy.svg',
+              semanticsLabel: 'Cloudy',
+            );
+          });
+        case Weather.rainy:
+          setState(() {
+            _weatherWidget = SvgPicture.asset(
+              'assets/svg/rainy.svg',
+              semanticsLabel: 'Rainy',
+            );
+          });
+      }
+    } on Exception catch (e) {
+      if (!mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          key: const Key('snackBar'),
+          behavior: SnackBarBehavior.floating,
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          backgroundColor: Colors.white,
+          content: Text(
+            e.toString(),
+            style: const TextStyle(
+              color: Colors.red,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +84,9 @@ class MainApp extends StatelessWidget {
                 const Expanded(
                   child: SizedBox(),
                 ),
-                const AspectRatio(
+                AspectRatio(
                   aspectRatio: 1,
-                  child: Placeholder(),
+                  child: _weatherWidget,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
@@ -66,9 +131,7 @@ class MainApp extends StatelessWidget {
                         ),
                         Expanded(
                           child: TextButton(
-                            onPressed: () {
-                              debugPrint('Reload');
-                            },
+                            onPressed: setWeather,
                             child: const Text('Reload'),
                           ),
                         ),
