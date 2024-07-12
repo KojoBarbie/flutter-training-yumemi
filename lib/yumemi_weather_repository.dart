@@ -17,7 +17,7 @@ class YumemiWeatherRepository {
       } else {
         throw Exception('Unknown weather: $weatherString');
       }
-    } on Exception catch (e) {
+    } on Exception {
       throw Exception('予期しないエラーが発生しました。');
     }
   }
