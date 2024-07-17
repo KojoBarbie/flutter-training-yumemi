@@ -15,10 +15,10 @@ class YumemiWeatherRepository {
       } else if (weatherString == 'rainy') {
         return Weather.rainy;
       } else {
-        throw Exception('Unknown weather: $weatherString');
+        throw Exception('予期しないエラーが発生しました。');
       }
     } on Exception {
-      throw Exception('予期しないエラーが発生しました。');
+      rethrow;
     }
   }
 }
